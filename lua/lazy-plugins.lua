@@ -29,9 +29,9 @@ require("lazy").setup({
             config = function()
                 require('catppuccin').setup({
                     flavor = 'latte',
-                    --transparent_background = true,
+                    -- transparent_background = true,
                     float = {
-                        --transparent = true,
+                        -- transparent = true,
                     },
                     integrations = {
                         cmp = true,
@@ -60,7 +60,7 @@ require("lazy").setup({
               priority = 1000,
               opts = {},
               config = function()
-                  require('tokyonight').setup({ })
+                  require('tokyonight').setup({})
                   local hour = tonumber(os.date("%H"))
                   local is_day = (hour >= 6 and hour < 17)
                   if not is_day then
