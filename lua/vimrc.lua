@@ -2,6 +2,7 @@
 ---- lua/vimcr.lua -------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+vim.cmd("syntax on")
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -24,6 +25,12 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
 vim.opt.termguicolors = true
+
+vim.cmd.colorscheme 'torte' -- elflord, murphy, evening
+
+-- Change 'fg' for the tildes (~) and 'bg' for the background color
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#444444", bg = "#000000" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1e2430", bold = false, underline = false })
 
 --[[
 local hour = tonumber(os.date("%H"))

@@ -24,6 +24,17 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
+        {
+            "neanias/everforest-nvim",
+            version = false,
+            lazy = false,
+            priority = 1000,
+            config = function()
+                require('everforest').setup({
+                    -- background = 'hard', 
+                })
+            end,
+        },
 
         { "catppuccin/nvim", name = "catppuccin", priority = 1000,
             config = function()
@@ -48,6 +59,8 @@ require("lazy").setup({
                 local is_day = (hour >= 6 and hour < 17)
                 if is_day then
                     vim.cmd.colorscheme 'catppuccin-latte'
+                else
+                    vim.cmd.colorscheme 'catppuccin-mocha'
                 end
             end
         },
@@ -61,11 +74,6 @@ require("lazy").setup({
               opts = {},
               config = function()
                   require('tokyonight').setup({})
-                  local hour = tonumber(os.date("%H"))
-                  local is_day = (hour >= 6 and hour < 17)
-                  if not is_day then
-                      vim.cmd.colorscheme 'tokyonight-moon'
-                  end
               end
         },
 
@@ -234,7 +242,6 @@ require("lazy").setup({
 
         { 
             'nvim-neo-tree/neo-tree.nvim',
-            version = "3.35", -- TODO: check if this is fixed - 3.36.(1?) broke something
             dependencies = {
                 'nvim-lua/plenary.nvim',
                 'MunifTanjim/nui.nvim',
