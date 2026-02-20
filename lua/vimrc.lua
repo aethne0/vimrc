@@ -26,7 +26,7 @@ vim.opt.expandtab = true
 
 vim.opt.termguicolors = true
 
-vim.cmd.colorscheme 'torte' -- elflord, murphy, evening
+-- vim.cmd.colorscheme 'torte' -- elflord, murphy, evening
 
 -- Change 'fg' for the tildes (~) and 'bg' for the background color
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#444444", bg = "#000000" })

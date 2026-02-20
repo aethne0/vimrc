@@ -33,6 +33,13 @@ require("lazy").setup({
                 require('everforest').setup({
                     -- background = 'hard', 
                 })
+                vim.cmd.colorscheme 'everforest'
+
+                vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#444444", bg = "#000000" })
+
+                -- vim.api.nvim_set_hl(0, "Comment", { fg = "#888888", italic = true })
+                -- vim.api.nvim_set_hl(0, "SpecialComment", { fg = "#ffffff", reverse = false, italic = true, bold = false })
+                -- vim.api.nvim_set_hl(0, "@comment.documentation", { link = "SpecialComment" })
             end,
         },
 
@@ -58,9 +65,9 @@ require("lazy").setup({
                 local hour = tonumber(os.date("%H"))
                 local is_day = (hour >= 6 and hour < 17)
                 if is_day then
-                    vim.cmd.colorscheme 'catppuccin-latte'
+                    -- vim.cmd.colorscheme 'catppuccin-latte'
                 else
-                    vim.cmd.colorscheme 'catppuccin-mocha'
+                    -- vim.cmd.colorscheme 'catppuccin-mocha'
                 end
             end
         },
