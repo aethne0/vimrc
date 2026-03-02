@@ -63,6 +63,14 @@ vim.keymap.set('n', '<leader>ux', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'moonfly'
 end, {desc = "Theme: moonfly" })
+vim.keymap.set('n', '<leader>ue', function()
+    vim.opt.bg = 'dark'
+    vim.cmd.colorscheme 'everforest'
+end, {desc = "Theme: everforest" })
+vim.keymap.set('n', '<leader>ub', function()
+    vim.opt.bg = 'dark'
+    vim.cmd.colorscheme 'torte'
+end, {desc = "Theme: torte" })
 
 vim.g.matchparen_disable_cursor_hl = 1
 

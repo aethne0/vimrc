@@ -33,7 +33,7 @@ require("lazy").setup({
                 require('everforest').setup({
                     -- background = 'hard', 
                 })
-                vim.cmd.colorscheme 'everforest'
+                -- vim.cmd.colorscheme 'everforest'
 
                 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#444444", bg = "#000000" })
 
@@ -62,17 +62,24 @@ require("lazy").setup({
                     }
                 })
 
-                local hour = tonumber(os.date("%H"))
-                local is_day = (hour >= 6 and hour < 17)
-                if is_day then
-                    -- vim.cmd.colorscheme 'catppuccin-latte'
-                else
-                    -- vim.cmd.colorscheme 'catppuccin-mocha'
-                end
+                -- local hour = tonumber(os.date("%H"))
+                -- local is_day = (hour >= 6 and hour < 17)
+                -- if is_day then
+                --     vim.cmd.colorscheme 'catppuccin-latte'
+                -- else
+                --     vim.cmd.colorscheme 'catppuccin-mocha'
+                -- end
             end
         },
 
-        { "bluz71/vim-moonfly-colors", name = "moonfly", },
+        { 
+            "bluz71/vim-moonfly-colors",
+            name = "moonfly", 
+            config = function()
+                -- vim.cmd.colorscheme 'moonfly'
+                vim.cmd.colorscheme 'torte'
+            end
+        },
 
         {
               "folke/tokyonight.nvim",
@@ -95,7 +102,6 @@ require("lazy").setup({
             end,
         },
 
-        -- lsp
         { 
             'mason-org/mason-lspconfig.nvim',
 
@@ -409,13 +415,17 @@ require("lazy").setup({
         },
 
         {
-            "lukas-reineke/indent-blankline.nvim",
-            main = "ibl",
-            ---@module "ibl"
-            ---@type ibl.config
-            opts = {},
+            'nvimdev/indentmini.nvim',
             config = function()
-                require('ibl').setup()
+                require("indentmini").setup({
+                    only_current = false,
+                    enabled = true,
+                    char = '▏',
+                    -- key = '<F5>', -- optional, can be set here if you don't lazy-load
+                    minlevel = 0,
+                    -- exclude = { 'markdown', 'help', 'text', 'rst' },
+                    -- exclude_nodetype = { 'string', 'comment' }
+                })
             end
         },
 
