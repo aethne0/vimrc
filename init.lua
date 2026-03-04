@@ -172,6 +172,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             vim.api.nvim_set_hl(0, "@lsp.type.enumMember.zig", { fg = '#f0c0c0', bold = true, })
             vim.api.nvim_set_hl(0, "@lsp.type.struct.zig", { fg = '#00f000' })
             vim.api.nvim_set_hl(0, "@lsp.type.namespace.zig", { fg = '#ff8888', italic = true })
+
+            vim.cmd("highlight Normal guibg=none ctermbg=none")
         end
     end,
 })
