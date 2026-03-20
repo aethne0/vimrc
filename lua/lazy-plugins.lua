@@ -396,9 +396,9 @@ require("lazy").setup({
             },
         },
 
-        {
-            'wellle/context.vim',
-        },
+        -- {
+        --     'wellle/context.vim',
+        -- },
 
         {
             'nvim-lualine/lualine.nvim',

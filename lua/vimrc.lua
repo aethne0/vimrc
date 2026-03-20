@@ -76,7 +76,7 @@ vim.g.matchparen_disable_cursor_hl = 1
 
 -- vim.opt.clipboard = "unnamed"
 
-vim.keymap.set('n', '<leader>cad', ':set autochdir<CR>', { silent = true })
+vim.keymap.set('n', '<leader>CC', ':set autochdir<CR>', { silent = true })
 
 vim.keymap.set('n', 'gh', ':lua vim.lsp.buf.hover()<CR>', { buffer = bufnr, desc = 'LSP hover' })
 
@@ -85,7 +85,7 @@ vim.keymap.set('n', 'gD', ':tab split | lua vim.lsp.buf.definition()<CR>', { buf
 
 vim.keymap.set('n', '<leader>T', ':Telescope<CR>', { buffer = bufnr, desc = 'Telescope' })
 
-vim.keymap.set('n', '<leader>C', ':Telescope command_history<CR>', { buffer = bufnr, desc = 'Telescope COMMAND_HISTORY' })
+vim.keymap.set('n', '<leader>c', ':Telescope command_history<CR>', { buffer = bufnr, desc = 'Telescope COMMAND_HISTORY' })
 vim.keymap.set('n', '<leader>d', ':Telescope diagnostics<CR>', { buffer = bufnr, desc = 'TELESCOPE DIAGNOSTICS' })
 
 vim.keymap.set('n', '<c-p>', ':Telescope find_files<CR>', { buffer = bufnr, desc = 'Telescope FILES' })
@@ -130,7 +130,7 @@ end, { desc = 'Scroll down 1/4 page' })
 vim.keymap.set('n', '<leader>s', function()
     local tabs = vim.api.nvim_list_tabpages()
     local current_tab = vim.api.nvim_get_current_tabpage()
-    
+
     if #tabs <= 1 then
         print("No other tab to suck in")
         return
@@ -172,3 +172,22 @@ vim.keymap.set('n', '<leader>t', function()
     -- Return focus to the original tab
     vim.api.nvim_set_current_tabpage(current_tab)
 end, { silent = true, desc = "Push split to new tab and stay" })
+
+-- clean trailing whitespace keybind
+vim.keymap.set('n', '<leader>ws', function()
+    local save_cursor = vim.fn.getpos(".")
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.setpos(".", save_cursor)
+end, { desc = "Strip trailing whitespace" })
+
+-- clean trailing whitespace on save
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = "*",
+    callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
+
+vim.keymap.set('n', '<CR>', '<CR>:noh<CR>', { silent = true })

@@ -46,6 +46,10 @@ vim.keymap.set('n', '<C-l>', function()
     vim.diagnostic.config({ virtual_lines = conf})
 end, { desc = 'Toggle diagnostic virtual_lines' })
 
+vim.keymap.set('n', '<leader>lz', vim.lsp.buf.code_action, {
+    desc = "Code action"
+})
+
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 
 
@@ -137,45 +141,84 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             vim.cmd.highlight('IndentLine guifg=#888888')
             vim.cmd.highlight('IndentLineCurrent guifg=#cccccc')
 
+
+            vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#888888" })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#ffa0ff', italic = true, bold = false })
+            vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.string", { fg = '#ccffcc', italic = true })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.operator", { fg = "#ffff00" })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.builtin", { fg = "#ff8000", bold = false, underline = true })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.property", { fg = "#c0ffc0", italic = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.variable", { fg = "#ffffff" })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.function", { fg = "#80ffff", italic = false, underline = false }) -- true
+            vim.api.nvim_set_hl(0, "@lsp.type.method", { fg = "#80ffff", italic = false, underline = false }) -- true
+
+            vim.api.nvim_set_hl(0, "@lsp.type.type", { fg = '#00ccff' })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.keyword", { italic = true })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = "#ffffff", italic = false })
+
+            -- vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = '#80f080', underline = false })
+            vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = '#f0c0c0', bold = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.enum.cpp", { fg = '#00c000' })
+            vim.api.nvim_set_hl(0, "@lsp.type.enumMember", { fg = '#f0c0c0', italic = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.struct", { fg = '#00f000' })
+            vim.api.nvim_set_hl(0, "@lsp.type.namespace", { fg = '#ff8888', italic = true })
+
+            vim.api.nvim_set_hl(0, "@lsp.type.macro", { fg = '#c040ff', bold = true, underline = false })
+
+            -- RUST
+            vim.api.nvim_set_hl(0, "rustUnsafeKeyword", { fg = '#ff4000' })
+            vim.api.nvim_set_hl(0, "rustSigil", { fg = '#ff8000' })
+            vim.api.nvim_set_hl(0, "rustStorage", { fg='#00ccff' })
+            vim.api.nvim_set_hl(0, "rustKeyword", { fg='#ffff00', italic = true })
+
+            vim.api.nvim_set_hl(0, "rustAwait", { fg = '#c0c0f0', italic = true })
+            vim.api.nvim_set_hl(0, "rustAsync", { link = 'rustAwait' })
+
+            vim.api.nvim_set_hl(0, "rustStructure", { fg = '#ffffc0' })
+            vim.api.nvim_set_hl(0, "rustTypedef", { link = 'rustStructure' })
+
+
+            -- C
+            vim.api.nvim_set_hl(0, "cInclude", { link = "@lsp.type.macro" })
+            vim.api.nvim_set_hl(0, "cType", { link = "@lsp.type.type"})
+            vim.api.nvim_set_hl(0, "@type.builtin.c", { link = "@lsp.type.type"})
+            vim.api.nvim_set_hl(0, "cComment", { link = "@lsp.type.comment" })
+            vim.api.nvim_set_hl(0, "comment.c", { link = "@lsp.type.comment" })
+            vim.api.nvim_set_hl(0, "cParen", { link = "@lsp.type.operator" })
+            vim.api.nvim_set_hl(0, "cStorageClass", { fg = "#ff8000", bold = false, underline = false })
+            vim.api.nvim_set_hl(0, "cFormat", { fg = "#aaaaaa", italic = true })
+            vim.api.nvim_set_hl(0, "@punctuation.bracket.c", { fg = '#cccccc' })
+
+            -- CPP
+            vim.api.nvim_set_hl(0, "cppType", { link = "@lsp.type.type"})
+            vim.api.nvim_set_hl(0, "cppCast", { fg = "#ff0080", bold = false, underline = true, italic = true })
+
             -- ZIG
-            vim.api.nvim_set_hl(0, "@lsp.type.comment.zig", { fg = '#ff80ff', italic = true, bold = false })
-            vim.api.nvim_set_hl(0, "zigCommentLine", { link = "@lsp.type.keyword.zig" })
-
-            vim.api.nvim_set_hl(0, "@lsp.type.string.zig", { fg = '#ccffcc', italic = true })
-            vim.api.nvim_set_hl(0, "zigString", { link = "@lsp.type.keyword.zig" })
-
-            vim.api.nvim_set_hl(0, "@lsp.type.builtin.zig", { fg = "#ff8000", bold = false, underline = true })
-            vim.api.nvim_set_hl(0, "zigBuiltinFn", { link = "@lsp.type.builtin.zig" })
-
-            vim.api.nvim_set_hl(0, "zigExecution", { fg = "#ffffc0", italic = true, bold = true })
-            vim.api.nvim_set_hl(0, "zigPreProc", { fg = "#ff3333", italic = true, bold = false })
-
-            vim.api.nvim_set_hl(0, "@lsp.type.variable.zig", { fg = "#FFFFFF", bold = false })
             vim.api.nvim_set_hl(0, "zigBlock", { link = "@lsp.type.variable.zig" })
-
-            vim.api.nvim_set_hl(0, "@lsp.type.property.zig", { fg = "#88ffff", italic = true })
-            vim.api.nvim_set_hl(0, "@lsp.type.function.zig", { fg = "#88ffff", italic = false, underline = true  })
-            vim.api.nvim_set_hl(0, "@lsp.type.method.zig", { fg = "#88ffff", italic = false, underline = true  })
-
-            vim.api.nvim_set_hl(0, "@lsp.type.type.zig", { fg = '#00ccff' })
-            vim.api.nvim_set_hl(0, "zigType", { link = "@lsp.type.type.zig"})
-
-            vim.api.nvim_set_hl(0, "@lsp.type.keyword.zig", { italic = true })
-            -- vim.api.nvim_set_hl(0, "zigVarDecl", { link = "@lsp.type.keyword.zig" })
-            -- vim.api.nvim_set_hl(0, "zigVarDecl", { fg = '#0099ff' })
+            vim.api.nvim_set_hl(0, "zigType", { link = "@lsp.type.type"})
             vim.api.nvim_set_hl(0, "zigVarDecl", { fg = '#aaaaaa', bold = true, italic = true })
+            vim.api.nvim_set_hl(0, "zigPreProc", { fg = "#ff3333", italic = true, bold = false })
+            vim.api.nvim_set_hl(0, "zigExecution", { fg = "#ffffc0", italic = true, bold = true })
+            vim.api.nvim_set_hl(0, "zigBuiltinFn", { link = "@lsp.type.builtin" })
+            vim.api.nvim_set_hl(0, "zigString", { link = "@lsp.type.keyword" })
+            vim.api.nvim_set_hl(0, "zigCommentLine", { link = "@lsp.type.comment" })
 
-            vim.api.nvim_set_hl(0, "@lsp.type.parameter.zig", { fg = "#ffffff", italic = false })
-            -- vim.api.nvim_set_hl(0, "zigVarDecl", { link = "@lsp.type.keyword.zig" })
+            -- BACKGROUND
+            -- vim.cmd("highlight Normal guibg=none ctermbg=none")
+            -- vim.cmd("highlight Normal guibg=#1c1c1c ctermbg=none")
 
-            vim.api.nvim_set_hl(0, "@lsp.type.enum.zig", { fg = '#80f000' })
-            vim.api.nvim_set_hl(0, "@lsp.type.enumMember.zig", { fg = '#f0c0c0', bold = true, })
-            vim.api.nvim_set_hl(0, "@lsp.type.struct.zig", { fg = '#00f000' })
-            vim.api.nvim_set_hl(0, "@lsp.type.namespace.zig", { fg = '#ff8888', italic = true })
-
-            vim.cmd("highlight Normal guibg=none ctermbg=none")
         end
     end,
 })
 
 vim.cmd.colorscheme 'torte'
+
