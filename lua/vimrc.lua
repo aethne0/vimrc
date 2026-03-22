@@ -214,3 +214,29 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 vim.keymap.set('n', '<CR>', '<CR>:noh<CR>', { silent = true })
+
+vim.api.nvim_create_user_command('Q', function()
+  local cur_tab = vim.api.nvim_get_current_tabpage()
+  local cur_buf = vim.api.nvim_get_current_buf()
+
+  -- Close all other tabs
+  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+    if tab ~= cur_tab then
+      vim.cmd('tabclose ' .. vim.api.nvim_tabpage_get_number(tab))
+    end
+  end
+
+  -- Close all other windows in current tab
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(cur_tab)) do
+    if win ~= vim.api.nvim_get_current_win() then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+
+  -- Close all other buffers
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= cur_buf and vim.api.nvim_buf_is_loaded(buf) then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end, {})
