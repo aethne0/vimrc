@@ -12,7 +12,7 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
                 { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
                 { out, "WarningMsg" },
                 { "\nPress any key to exit..." },
-            }, 
+            },
             true, {}
         )
         vim.fn.getchar()
@@ -31,7 +31,7 @@ require("lazy").setup({
             priority = 1000,
             config = function()
                 require('everforest').setup({
-                    -- background = 'hard', 
+                    -- background = 'hard',
                 })
                 -- vim.cmd.colorscheme 'everforest'
 
@@ -72,9 +72,9 @@ require("lazy").setup({
             end
         },
 
-        { 
+        {
             "bluz71/vim-moonfly-colors",
-            name = "moonfly", 
+            name = "moonfly",
             config = function()
                 -- vim.cmd.colorscheme 'moonfly'
                 vim.cmd.colorscheme 'torte'
@@ -102,7 +102,7 @@ require("lazy").setup({
             end,
         },
 
-        { 
+        {
             'mason-org/mason-lspconfig.nvim',
 
             dependencies = {
@@ -203,12 +203,12 @@ require("lazy").setup({
         {
           -- file explorer etc
           'nvim-telescope/telescope.nvim',
-          dependencies = { 
+          dependencies = {
               "nvim-lua/plenary.nvim",
               "nvim-telescope/telescope-live-grep-args.nvim",
           },
             --cmd = { "Telescope" },
-            config = function() 
+            config = function()
                 local t = require('telescope')
 
                 t.setup{
@@ -219,7 +219,7 @@ require("lazy").setup({
                         file_ignore_patterns = {},
                         find_command = { 'rg', '--files', '--ignore', '--hidden' },
                     },
-                    pickers = { 
+                    pickers = {
                         colorscheme = {
                             enable_preview = true
                         },
@@ -253,7 +253,7 @@ require("lazy").setup({
 
         },
 
-        { 
+        {
             'nvim-neo-tree/neo-tree.nvim',
             dependencies = {
                 'nvim-lua/plenary.nvim',
@@ -358,13 +358,13 @@ require("lazy").setup({
             }
         },
 
-        { 
+        {
             'unblevable/quick-scope',
         },
 
         {
             'chentoast/marks.nvim',
-            config = function() 
+            config = function()
                 require('marks').setup()
             end
         },
@@ -373,7 +373,7 @@ require("lazy").setup({
             -- todo write a better one
             'folke/todo-comments.nvim',
             dependencies = { 'nvim-lua/plenary.nvim' },
-            opts = { 
+            opts = {
                 signs = false,
                 keywords = {
                     FIX = {
@@ -404,6 +404,18 @@ require("lazy").setup({
             'nvim-lualine/lualine.nvim',
             config = function()
                 require('lualine').setup{
+                    sections = {
+                        lualine_c = {
+                            {
+                                'filename',
+                                -- all the default filename opts are preserved unless you override them
+                                fmt = function(str, context)
+                                    local lines = vim.api.nvim_buf_line_count(0)
+                                    return str .. ' (' .. lines .. 'L)'
+                                end,
+                            },
+                        },
+                    },
                     options = {
                         icons_enabled = false,
                         theme = 'auto',

@@ -108,6 +108,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- })
 
 -- 1. Register the config
+vim.lsp.config.lua_ls = {
+    filetypes = { 'lua' },
+
+    settings = {
+        Lua = {diagnostics = {globals = {"vim"}}},
+    },
+}
+
 vim.lsp.config.zls = {
     install = {
         cmd = { os.getenv("HOME") .. "/bin/zls" },
@@ -138,9 +146,8 @@ local targets = { ["torte"] = true, ["darkblue"] = true, ["vim"] = true, }
 vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function(args)
         if targets[args.match] then
-            vim.cmd.highlight('IndentLine guifg=#888888')
-            vim.cmd.highlight('IndentLineCurrent guifg=#cccccc')
-
+            vim.cmd.highlight('IndentLine guifg=#555555')
+            vim.cmd.highlight('IndentLineCurrent guifg=#bbbbbb')
 
             vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#888888" })
 
@@ -167,8 +174,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
             -- vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = '#80f080', underline = false })
             vim.api.nvim_set_hl(0, "@lsp.type.enum", { fg = '#f0c0c0', bold = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.enumMember", { fg = '#c0a0a0', italic = true })
             vim.api.nvim_set_hl(0, "@lsp.type.enum.cpp", { fg = '#00c000' })
-            vim.api.nvim_set_hl(0, "@lsp.type.enumMember", { fg = '#f0c0c0', italic = true })
             vim.api.nvim_set_hl(0, "@lsp.type.struct", { fg = '#00f000' })
             vim.api.nvim_set_hl(0, "@lsp.type.namespace", { fg = '#ff8888', italic = true })
 
@@ -185,6 +192,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
             vim.api.nvim_set_hl(0, "rustStructure", { fg = '#ffffc0' })
             vim.api.nvim_set_hl(0, "rustTypedef", { link = 'rustStructure' })
+            vim.api.nvim_set_hl(0, "@lsp.type.interface.rust", { fg = '#ff60a0', italic = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { fg = '#c040ff', bold = true, underline = true })
+            vim.api.nvim_set_hl(0, "@lsp.type.namespace.rust", { fg=  '#c0c0c0' })
+            vim.api.nvim_set_hl(0, "@lsp.type.const.rust", { fg=  '#ffffff', bold = true, italic = true })
 
 
             -- C
@@ -211,6 +222,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             vim.api.nvim_set_hl(0, "zigBuiltinFn", { link = "@lsp.type.builtin" })
             vim.api.nvim_set_hl(0, "zigString", { link = "@lsp.type.keyword" })
             vim.api.nvim_set_hl(0, "zigCommentLine", { link = "@lsp.type.comment" })
+
+            vim.cmd([[
+              highlight DiagnosticUnderlineError gui=undercurl guisp=red
+              highlight DiagnosticUnderlineWarn  gui=undercurl guisp=yellow
+              highlight DiagnosticUnderlineHint  gui=undercurl guisp=blue
+              highlight DiagnosticUnderlineInfo  gui=undercurl guisp=gray
+            ]])
+
+            vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282c38" })
 
             -- BACKGROUND
             -- vim.cmd("highlight Normal guibg=none ctermbg=none")

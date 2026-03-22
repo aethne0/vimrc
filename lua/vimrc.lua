@@ -80,8 +80,31 @@ vim.keymap.set('n', '<leader>CC', ':set autochdir<CR>', { silent = true })
 
 vim.keymap.set('n', 'gh', ':lua vim.lsp.buf.hover()<CR>', { buffer = bufnr, desc = 'LSP hover' })
 
-vim.keymap.set('n', 'gd', ':split | lua vim.lsp.buf.definition()<CR>', { buffer = bufnr, desc = 'Goto definition - new tab' })
-vim.keymap.set('n', 'gD', ':tab split | lua vim.lsp.buf.definition()<CR>', { buffer = bufnr, desc = 'Goto definition - new tab' })
+vim.keymap.set('n', 'gD', function()
+  vim.lsp.buf.definition({
+    on_list = function(result)
+      if not result or not result.items or #result.items == 0 then return end
+      local item = result.items[1]
+      vim.cmd('split ' .. (item.filename or vim.api.nvim_buf_get_name(0)))
+      vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+      vim.cmd('normal! zz')
+    end,
+  })
+end, { buffer = bufnr, desc = 'Goto definition - split' })
+
+vim.keymap.set('n', 'gd', function()
+  vim.lsp.buf.definition({
+    on_list = function(result)
+      if not result or not result.items or #result.items == 0 then return end
+      local item = result.items[1]
+      if item.filename and item.filename ~= vim.api.nvim_buf_get_name(0) then
+        vim.cmd('edit ' .. item.filename)
+      end
+      vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+      vim.cmd('normal! zz')
+    end,
+  })
+end, { buffer = bufnr, desc = 'Goto definition - current buffer' })
 
 vim.keymap.set('n', '<leader>T', ':Telescope<CR>', { buffer = bufnr, desc = 'Telescope' })
 
