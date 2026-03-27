@@ -230,9 +230,15 @@ vim.api.nvim_create_autocmd("ColorScheme", {
               highlight DiagnosticUnderlineInfo  gui=undercurl guisp=gray
             ]])
 
+            -- nvim tree
+            vim.api.nvim_set_hl(0, "NeoTreeMessage", { fg = "#808080" })
+            vim.api.nvim_set_hl(0, "NeoTreeFileStats", { fg = "#a0a0a0" })
+            vim.api.nvim_set_hl(0, "NeoTreeFileStatsHeader", { fg = "#ffff00" })
+
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282c38" })
 
             vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#004030" })
+
 
             -- BACKGROUND
             vim.cmd("highlight Normal guibg=none ctermbg=none")
