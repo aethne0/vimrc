@@ -151,7 +151,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
             vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = "#888888" })
 
-            vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#ffa0ff', italic = true, bold = false })
+            -- vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#ffa0ff', italic = true, bold = false })
+            vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#aa60aa', italic = true, bold = false })
             vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
 
             vim.api.nvim_set_hl(0, "@lsp.type.string", { fg = '#ccffcc', italic = true })

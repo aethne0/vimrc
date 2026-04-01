@@ -227,6 +227,9 @@ require("lazy").setup({
                 }
 
                 t.load_extension('live_grep_args')
+                vim.cmd('runtime ftplugin/man.vim')
+                --
+
             end,
         },
 
