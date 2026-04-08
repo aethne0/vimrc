@@ -125,9 +125,9 @@ end, { desc = "LSP References (selection)" })
 
 vim.keymap.set('n', '<c-h>', ':split<CR>', { buffer = bufnr, desc = 'Split' })
 
--- quarter page scrolling
+-- third page scrolling
 vim.keymap.set('n', '<C-u>', function()
-    local count = math.floor(vim.api.nvim_win_get_height(0) / 4)
+    local count = math.floor(vim.api.nvim_win_get_height(0) / 2)
     local curs = vim.api.nvim_win_get_cursor(0)
     local target_row = math.max(curs[1] - count, 1)
 
@@ -137,7 +137,7 @@ vim.keymap.set('n', '<C-u>', function()
 end, { desc = 'Scroll up 1/4 page' })
 
 vim.keymap.set('n', '<C-d>', function()
-    local count = math.floor(vim.api.nvim_win_get_height(0) / 4)
+    local count = math.floor(vim.api.nvim_win_get_height(0) / 2)
     local curs = vim.api.nvim_win_get_cursor(0)
     local buff_line_count = vim.api.nvim_buf_line_count(0)
     local target_row = math.min(curs[1] + count, buff_line_count)
