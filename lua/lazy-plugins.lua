@@ -91,16 +91,16 @@ require("lazy").setup({
               end
         },
 
-        {
-            "nvim-treesitter/nvim-treesitter",
-            build = ":TSUpdate",
-            config = function()
-            require("nvim-treesitter").setup {
-                ensure_installed = { "elixir", "heex", "eex", "go" },
-                highlight = { enable = true },
-            }
-            end,
-        },
+        -- {
+        --     "nvim-treesitter/nvim-treesitter",
+        --     build = ":TSUpdate",
+        --     config = function()
+        --     require("nvim-treesitter").setup {
+        --         ensure_installed = { "elixir", "heex", "eex", "go" },
+        --         highlight = { enable = true },
+        --     }
+        --     end,
+        -- },
 
         {
             'mason-org/mason-lspconfig.nvim',
@@ -398,9 +398,9 @@ require("lazy").setup({
             },
         },
 
-        {
-            'wellle/context.vim',
-        },
+        -- {
+        --     'wellle/context.vim',
+        -- },
 
         {
             'nvim-lualine/lualine.nvim',
@@ -449,18 +449,18 @@ require("lazy").setup({
                 local r = require('live-rename')
                 vim.keymap.set('n', '<F2>', r.rename, {desc = 'LSP rename'})
             end
-        },
-
-        {
-            'davidmh/mdx.nvim',
-            dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        },
-
-        {
-            'MeanderingProgrammer/render-markdown.nvim',
-            dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
-            opts = {},
         }
+
+        -- {
+        --     'davidmh/mdx.nvim',
+        --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        -- },
+
+        -- {
+        --     'MeanderingProgrammer/render-markdown.nvim',
+        --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },
+        --     opts = {},
+        -- }
 
     },
     -- Configure any other settings here. See the documentation for more details.
