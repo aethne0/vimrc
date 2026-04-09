@@ -360,9 +360,9 @@ require("lazy").setup({
             }
         },
 
-        {
-            'unblevable/quick-scope',
-        },
+        -- {
+        --     'unblevable/quick-scope',
+        -- },
 
         {
             'chentoast/marks.nvim',
