@@ -111,10 +111,9 @@ require("lazy").setup({
             },
 
             config = function()
-                require('mason').setup()
-                require('mason-lspconfig').setup()
-
-            end
+              require('mason').setup()
+              require('mason-lspconfig').setup({})
+              end
         },
 
         {
@@ -399,9 +398,9 @@ require("lazy").setup({
             },
         },
 
-        -- {
-        --     'wellle/context.vim',
-        -- },
+        {
+            'wellle/context.vim',
+        },
 
         {
             'nvim-lualine/lualine.nvim',
