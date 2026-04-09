@@ -240,6 +240,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#004030" })
 
 
+
+            vim.api.nvim_set_hl(0, "Whitespace", { fg = "#404040" })
+
             -- BACKGROUND
             -- vim.cmd("highlight Normal guibg=none ctermbg=none")
             vim.cmd("highlight Normal guibg=#14171a ctermbg=none")
@@ -252,3 +255,6 @@ vim.cmd.colorscheme 'torte'
 
 -- stop treesitter
 vim.treesitter.stop()
+
+vim.opt.list = true
+vim.opt.listchars = { leadmultispace = "│   " }

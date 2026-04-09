@@ -349,9 +349,9 @@ require("lazy").setup({
             }
         },
 
-        -- {
-        --     'unblevable/quick-scope',
-        -- },
+        {
+            'unblevable/quick-scope',
+        },
 
         {
             'chentoast/marks.nvim',
@@ -418,38 +418,12 @@ require("lazy").setup({
         },
 
         {
-            'nvimdev/indentmini.nvim',
-            config = function()
-                require("indentmini").setup({
-                    only_current = false,
-                    enabled = true,
-                    char = '▏',
-                    -- key = '<F5>', -- optional, can be set here if you don't lazy-load
-                    minlevel = 0,
-                    -- exclude = { 'markdown', 'help', 'text', 'rst' },
-                    -- exclude_nodetype = { 'string', 'comment' }
-                })
-            end
-        },
-
-        {
             'saecki/live-rename.nvim',
             config = function()
                 local r = require('live-rename')
                 vim.keymap.set('n', '<F2>', r.rename, {desc = 'LSP rename'})
             end
         }
-
-        -- {
-        --     'davidmh/mdx.nvim',
-        --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        -- },
-
-        -- {
-        --     'MeanderingProgrammer/render-markdown.nvim',
-        --     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },
-        --     opts = {},
-        -- }
 
     },
     -- Configure any other settings here. See the documentation for more details.
