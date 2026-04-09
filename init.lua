@@ -250,3 +250,5 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 vim.cmd.colorscheme 'torte'
 
+-- stop treesitter
+vim.treesitter.stop()

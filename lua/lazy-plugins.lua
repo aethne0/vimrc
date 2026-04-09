@@ -91,17 +91,6 @@ require("lazy").setup({
               end
         },
 
-        -- {
-        --     "nvim-treesitter/nvim-treesitter",
-        --     build = ":TSUpdate",
-        --     config = function()
-        --     require("nvim-treesitter").setup {
-        --         ensure_installed = { "elixir", "heex", "eex", "go" },
-        --         highlight = { enable = true },
-        --     }
-        --     end,
-        -- },
-
         {
             'mason-org/mason-lspconfig.nvim',
 
