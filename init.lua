@@ -237,16 +237,19 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "#282c38" })
 
-            vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#004030" })
+            -- max page width thingy
+            vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#002018" })
 
 
 
             vim.api.nvim_set_hl(0, "Whitespace", { fg = "#404040" })
 
+            vim.api.nvim_set_hl(0, "Search", { bg = "#f1d4af", fg = "#000000" })
+            vim.api.nvim_set_hl(0, "IncSearch", { bg = "#e67e22", fg = "#ffffff" })
+
             -- BACKGROUND
             -- vim.cmd("highlight Normal guibg=none ctermbg=none")
             vim.cmd("highlight Normal guibg=#14171a ctermbg=none")
-
         end
     end,
 })
@@ -258,3 +261,6 @@ vim.treesitter.stop()
 
 vim.opt.list = true
 vim.opt.listchars = { leadmultispace = "│   " }
+
+vim.opt_local.textwidth = 100
+vim.opt_local.colorcolumn = "101"

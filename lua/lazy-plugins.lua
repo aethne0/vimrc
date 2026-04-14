@@ -399,6 +399,7 @@ require("lazy").setup({
                         lualine_c = {
                             {
                                 'filename',
+                                path = 1,
                                 -- all the default filename opts are preserved unless you override them
                                 fmt = function(str, context)
                                     local lines = vim.api.nvim_buf_line_count(0)
