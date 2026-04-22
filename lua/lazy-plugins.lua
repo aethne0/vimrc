@@ -206,6 +206,10 @@ require("lazy").setup({
                     defaults = {
                         file_ignore_patterns = {},
                         find_command = { 'rg', '--files', '--ignore', '--hidden' },
+                        layout_strategy = 'vertical',
+                        preview = {
+                            treesitter = false,
+                        },
                     },
                     pickers = {
                         colorscheme = {
@@ -216,7 +220,13 @@ require("lazy").setup({
 
                 t.load_extension('live_grep_args')
                 vim.cmd('runtime ftplugin/man.vim')
-                --
+
+                vim.api.nvim_create_autocmd("User", {
+                    pattern = "TelescopePreviewerLoaded",
+                    callback = function()
+                        vim.wo.number = true
+                    end,
+                })
 
             end,
         },

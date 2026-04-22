@@ -250,6 +250,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
             -- BACKGROUND
             -- vim.cmd("highlight Normal guibg=none ctermbg=none")
             vim.cmd("highlight Normal guibg=#14171a ctermbg=none")
+            -- vim.cmd("highlight Normal guibg=#24272a ctermbg=none")
         end
     end,
 })
