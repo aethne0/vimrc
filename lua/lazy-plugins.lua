@@ -219,6 +219,7 @@ require("lazy").setup({
                 }
 
                 t.load_extension('live_grep_args')
+                vim.keymap.set('n', '<C-t>', ':Telescope resume<CR>', { silent = true, desc = 'Resume last Telescope picker' })
                 vim.cmd('runtime ftplugin/man.vim')
 
                 vim.api.nvim_create_autocmd("User", {
