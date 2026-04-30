@@ -7,10 +7,13 @@ require('tabs')         -- tabs + tab binds
 
 require('lazy-plugins')         -- plugins
 
+-- For alacritty TAB is the same as "Ctrl + i". Therefor use `nnoremap <C-I> <C-I>`
+vim.keymap.set("n", "<C-i>", "<C-i>", { silent = true, noremap = true })
+
 -- save
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 -- lsp binds
-vim.keymap.set('n', 'K', '<Nop>', { buffer = bufnr })
+-- vim.keymap.set('n', 'K', '<Nop>', { buffer = bufnr })
 -- vim.keymap.set('n', 'gh', vim.lsp.buf.hover, { buffer = bufnr, desc = 'LSP hover' })
 
 ------------------------
@@ -33,17 +36,17 @@ vim.diagnostic.config({
     severity_sort = true,
 })
 
-vim.keymap.set('n', '<C-i>', function()
+vim.keymap.set('n', '<C-l>', function()
     virtual_text_enabled = not virtual_text_enabled
     local conf = virtual_text_enabled and virtual_text_enabled_config or virtual_text_disabled_config
     vim.diagnostic.config({ virtual_text = conf})
 end, { desc = 'Toggle diagnostic virtual_text' })
 
-vim.keymap.set('n', '<C-l>', function()
-    virtual_lines_enabled = not virtual_lines_enabled
-    local conf = virtual_lines_enabled and virtual_lines_enabled_config or virtual_lines_disabled_config
-    vim.diagnostic.config({ virtual_lines = conf})
-end, { desc = 'Toggle diagnostic virtual_lines' })
+-- vim.keymap.set('n', '<C-l>', function()
+--     virtual_lines_enabled = not virtual_lines_enabled
+--     local conf = virtual_lines_enabled and virtual_lines_enabled_config or virtual_lines_disabled_config
+--     vim.diagnostic.config({ virtual_lines = conf})
+-- end, { desc = 'Toggle diagnostic virtual_lines' })
 
 vim.keymap.set('n', '<leader>lz', vim.lsp.buf.code_action, {
     desc = "Code action"
@@ -141,10 +144,112 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
-local targets = { ["torte"] = true, ["darkblue"] = true, ["vim"] = true, }
-vim.api.nvim_create_autocmd("ColorScheme", {
+local target_torte = { ["torte"] = true }
+local target_quiet = { ["quiet"] = true }
+local target_default = { ["default"] = true  }
+local target_blue = { ["blue"] = true  }
+
+vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
     callback = function(args)
-        if targets[args.match] then
+        -- default
+        if target_default[args.match] then
+            vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
+
+            if vim.o.background == 'light' then
+                vim.cmd("highlight Normal guibg=#d7d7d7 ctermbg=none")
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#ac60ac', italic = true, bold = false })
+
+                vim.api.nvim_set_hl(0, "@lsp.type.macro", { fg = '#ffcccc' })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { fg = '#8f5c5c', underline = true })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { fg = '#ffcccc' })
+            else
+                vim.cmd("highlight Normal guibg=#171914 ctermbg=none")
+
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#cc80cc', italic = true, bold = false })
+                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#80c070', italic = true })
+
+                vim.api.nvim_set_hl(0, "_macros", { fg = '#bf8c8c', italic = true })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
+
+                vim.api.nvim_set_hl(0, "Function", { fg = '#bccccc' })
+                vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
+                vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
+
+                vim.api.nvim_set_hl(0, "Statement", { fg = '#b8b8b8' })
+
+                vim.api.nvim_set_hl(0, "Identifier", { fg = '#d0d0d0', italic = true, bold = false })
+                vim.api.nvim_set_hl(0, "Constant", { fg = '#d0d0d0', italic = true, bold = false })
+
+            end
+        end
+
+        -- blue
+        if target_blue[args.match] then
+            -- vim.api.nvim_set_hl(0, "@lsp", {fg = '#00ffff' })
+            -- vim.api.nvim_set_hl(0, "Identifier", { fg = '#cccccc' })
+            -- vim.api.nvim_set_hl(0, "Type", { bold = false })
+            vim.api.nvim_set_hl(0, "Comment", { fg = '#cc80cc', italic = true, bold = false })
+            vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "Comment" })
+        end
+
+
+        -- quiet
+        if target_quiet[args.match] then
+            vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
+
+            if vim.o.background == 'light' then
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#8c509c', italic = true, bold = false })
+                vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
+
+                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#006000' })
+
+                vim.api.nvim_set_hl(0, "rustString", { fg = '#006000' })
+                vim.api.nvim_set_hl(0, "rustStringContinuation", { fg = '#006000' })
+                vim.api.nvim_set_hl(0, "rustEscape", { fg = '#006000' })
+
+                -- vim.api.nvim_set_hl(0, "_macros", { fg = '#8f5c5c', italic = true })
+                vim.api.nvim_set_hl(0, "_macros", { fg = '#4c2600', italic = true, underline = false })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
+
+                -- vim.api.nvim_set_hl(0, "Function", { fg = '#002040' })
+                -- vim.api.nvim_set_hl(0, "Function", { fg = '#102848' })
+                vim.api.nvim_set_hl(0, "Function", { fg = '#0c1e36' })
+                vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
+                vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
+
+                vim.api.nvim_set_hl(0, "Statement", { fg = '#505050' })
+
+            else
+                vim.cmd("highlight Normal guibg=#171914 ctermbg=none")
+                vim.api.nvim_set_hl(0, "NormalFloat", { bg = '#444444', fg = '#dddddd', italic = true, bold = false })
+
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#cc80cc', italic = true, bold = false })
+
+                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#80c070', italic = true })
+                vim.api.nvim_set_hl(0, "rustString", { fg = '#80c070' })
+                vim.api.nvim_set_hl(0, "rustStringContinuation", { fg = '#80c070' })
+                vim.api.nvim_set_hl(0, "rustStringDelimiter", { fg = '#80c070' })
+                vim.api.nvim_set_hl(0, "rustEscape", { fg = '#80c070' })
+
+                vim.api.nvim_set_hl(0, "_macros", { fg = '#bf8c8c', italic = true })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
+
+                -- vim.api.nvim_set_hl(0, "Function", { fg = '#ccdcdc' })
+                vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
+                vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
+
+                vim.api.nvim_set_hl(0, "Statement", { fg = '#b8b8b8' })
+            end
+        end
+
+        -- torte
+        if target_torte[args.match] then
             vim.cmd.highlight('IndentLine guifg=#555555')
             vim.cmd.highlight('IndentLineCurrent guifg=#bbbbbb')
 
@@ -255,10 +360,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
-vim.cmd.colorscheme 'torte'
-
 -- stop treesitter
 vim.treesitter.stop()
+
+vim.opt.bg = 'light'
+vim.cmd.colorscheme 'quiet'
+
 
 vim.opt.list = true
 vim.opt.listchars = { leadmultispace = "│   " }

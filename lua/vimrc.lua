@@ -47,30 +47,60 @@ vim.keymap.set('n', '<leader>ul', function()
     vim.opt.bg = 'light'
     vim.cmd.colorscheme 'catppuccin-latte'
 end, {desc = "Theme: catpuccin-LATTE" })
+
 vim.keymap.set('n', '<leader>uf', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'catppuccin-frappe'
 end, {desc = "Theme: catpuccin-frappe" })
+
 vim.keymap.set('n', '<leader>um', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'catppuccin-macchiato'
 end, {desc = "Theme: catpuccin-macchiato" })
+
 vim.keymap.set('n', '<leader>ut', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'tokyonight-moon'
 end, {desc = "Theme: tokyonight-moon" })
+
 vim.keymap.set('n', '<leader>ux', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'moonfly'
 end, {desc = "Theme: moonfly" })
+
 vim.keymap.set('n', '<leader>ue', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'everforest'
 end, {desc = "Theme: everforest" })
+
 vim.keymap.set('n', '<leader>ub', function()
     vim.opt.bg = 'dark'
     vim.cmd.colorscheme 'torte'
 end, {desc = "Theme: torte" })
+
+vim.keymap.set('n', '<leader>uq', function()
+    vim.opt.bg = 'light'
+    vim.cmd.colorscheme 'quiet'
+end, {desc = "Theme: quiet (light)" })
+
+vim.keymap.set('n', '<leader>ua', function()
+    vim.opt.bg = 'dark'
+    vim.cmd.colorscheme 'quiet'
+end, {desc = "Theme: quiet (dark)" })
+
+vim.keymap.set('n', '<leader>uz', function()
+    vim.cmd.colorscheme 'blue'
+end, {desc = "Theme: blue" })
+
+vim.keymap.set('n', '<leader>uw', function()
+    vim.opt.bg = 'light'
+    vim.cmd.colorscheme 'default'
+end, {desc = "Theme: default (light)" })
+
+vim.keymap.set('n', '<leader>us', function()
+    vim.opt.bg = 'dark'
+    vim.cmd.colorscheme 'default'
+end, {desc = "Theme: default (dark)" })
 
 vim.g.matchparen_disable_cursor_hl = 1
 
@@ -127,7 +157,7 @@ vim.keymap.set('n', '<c-h>', ':split<CR>', { buffer = bufnr, desc = 'Split' })
 
 -- third page scrolling
 vim.keymap.set('n', '<C-u>', function()
-    local count = math.floor(vim.api.nvim_win_get_height(0) / 2)
+    local count = math.floor(vim.api.nvim_win_get_height(0) / 3)
     local curs = vim.api.nvim_win_get_cursor(0)
     local target_row = math.max(curs[1] - count, 1)
 
@@ -137,7 +167,7 @@ vim.keymap.set('n', '<C-u>', function()
 end, { desc = 'Scroll up 1/4 page' })
 
 vim.keymap.set('n', '<C-d>', function()
-    local count = math.floor(vim.api.nvim_win_get_height(0) / 2)
+    local count = math.floor(vim.api.nvim_win_get_height(0) / 3)
     local curs = vim.api.nvim_win_get_cursor(0)
     local buff_line_count = vim.api.nvim_buf_line_count(0)
     local target_row = math.min(curs[1] + count, buff_line_count)

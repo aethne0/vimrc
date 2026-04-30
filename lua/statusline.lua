@@ -55,4 +55,4 @@ function get_statusline()
 end
 
 -- vim.o.statusline = "%{%v:lua.get_statusline()%}"
---hl-StatusLine
+-- hl-StatusLine

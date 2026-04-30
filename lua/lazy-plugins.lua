@@ -2,6 +2,7 @@
 ---- lua/lazy.lua --------------------------------------------------------------
 --------------------------------------------------------------------------------
 
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not (vim.uv or vim.loop).fs_stat(lazypath) then
         local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -315,6 +316,15 @@ require("lazy").setup({
                     popupmenu = { enabled = false, },
                     notify = { enabled = false, },
 
+                    views = {
+                        mini = {
+                            position = {
+                                row = 1,
+                                col = "100%",
+                            },
+                        },
+                    },
+
                     lsp = {
                         override = {
                             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -405,6 +415,21 @@ require("lazy").setup({
         {
             'nvim-lualine/lualine.nvim',
             config = function()
+                local my_theme = {
+                  normal = {
+                    a = { bg = '#000000', fg = '#ffffff', gui = 'bold' },
+                    b = { bg = '#ffffff', fg = '#000000' },
+                    c = { bg = '#000000', fg = '#ffffff' },
+                  },
+                  insert = { a = { bg = '#000000', fg = '#ffffff', gui = 'bold' } },
+                  visual = { a = { bg = '#000000', fg = '#ffffff', gui = 'bold' } },
+                  replace = { a = { bg = '#000000', fg = '#ffffff', gui = 'bold' } },
+                }
+
+                require('lualine').setup {
+                  options = { theme = my_theme }
+                }
+
                 require('lualine').setup{
                     sections = {
                         lualine_c = {
@@ -419,12 +444,13 @@ require("lazy").setup({
                             },
                         },
                     },
+
                     options = {
                         icons_enabled = false,
-                        theme = 'auto',
+                        theme = my_theme,
                         component_separators = { left = '|', right = '|'},
                         section_separators = { left = ' ', right = ' '},
-                    }
+                    },
                 }
             end,
         },
@@ -444,4 +470,5 @@ require("lazy").setup({
     -- automatically check for plugin updates
     checker = { enabled = false },
 })
+
 
