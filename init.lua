@@ -65,7 +65,11 @@ function apply_diagnostic_virtual_line_hl()
         local foreground = diag_virt_line.fg or diag.fg
         vim.api.nvim_set_hl(0, string.format('DiagnosticVirtualLines%s', k), { fg = foreground, bg = '#202020'  })
     end
+
+    vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = '#404040' })
+    -- vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = '#404040' })
 end
+
 
 apply_diagnostic_virtual_line_hl()
 
@@ -200,16 +204,18 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
             vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
 
             if vim.o.background == 'light' then
+                -- vim.cmd("highlight Normal guibg=#ffffdd ctermbg=none")
                 vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#8c509c', italic = true, bold = false })
                 vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
 
-                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#006000' })
+                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { link = 'String' })
+                vim.api.nvim_set_hl(0, "cString", { link = 'String' })
+                vim.api.nvim_set_hl(0, "String", { fg = '#306030' })
 
                 vim.api.nvim_set_hl(0, "rustString", { fg = '#006000' })
                 vim.api.nvim_set_hl(0, "rustStringContinuation", { fg = '#006000' })
                 vim.api.nvim_set_hl(0, "rustEscape", { fg = '#006000' })
 
-                -- vim.api.nvim_set_hl(0, "_macros", { fg = '#8f5c5c', italic = true })
                 vim.api.nvim_set_hl(0, "_macros", { fg = '#4c2600', italic = true, underline = false })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })

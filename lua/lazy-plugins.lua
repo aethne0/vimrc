@@ -426,9 +426,24 @@ require("lazy").setup({
                   replace = { a = { bg = '#000000', fg = '#ffffff', gui = 'bold' } },
                 }
 
-                require('lualine').setup {
-                  options = { theme = my_theme }
-                }
+                local target_quiet = { ["quiet"] = true }
+                vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
+                    callback = function(args)
+                        if target_quiet[args.match] then
+                            require('lualine').setup{
+                                options = {
+                                    theme = my_theme
+                                }
+                            }
+                        else
+                            require('lualine').setup{
+                                options = {
+                                    theme = 'auto'
+                                }
+                            }
+                        end
+                    end
+                })
 
                 require('lualine').setup{
                     sections = {
