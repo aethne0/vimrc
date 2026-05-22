@@ -151,47 +151,12 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
+local target_lunaperche = { ["lunaperche"] = true }
 local target_torte = { ["torte"] = true }
-local target_quiet = { ["quiet"] = true }
-local target_default = { ["default"] = true  }
-local target_blue = { ["blue"] = true  }
+local target_blue  = { ["blue"] = true  }
 
 vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
     callback = function(args)
-        -- default
-        if target_default[args.match] then
-            vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
-
-            if vim.o.background == 'light' then
-                vim.cmd("highlight Normal guibg=#d7d7d7 ctermbg=none")
-                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#ac60ac', italic = true, bold = false })
-
-                vim.api.nvim_set_hl(0, "@lsp.type.macro", { fg = '#ffcccc' })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { fg = '#8f5c5c', underline = true })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { fg = '#ffcccc' })
-            else
-                vim.cmd("highlight Normal guibg=#171914 ctermbg=none")
-
-                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#cc80cc', italic = true, bold = false })
-                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#80c070', italic = true })
-
-                vim.api.nvim_set_hl(0, "_macros", { fg = '#bf8c8c', italic = true })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
-
-                vim.api.nvim_set_hl(0, "Function", { fg = '#bccccc' })
-                vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
-                vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
-
-                vim.api.nvim_set_hl(0, "Statement", { fg = '#b8b8b8' })
-
-                vim.api.nvim_set_hl(0, "Identifier", { fg = '#d0d0d0', italic = true, bold = false })
-                vim.api.nvim_set_hl(0, "Constant", { fg = '#d0d0d0', italic = true, bold = false })
-
-            end
-        end
-
         -- blue
         if target_blue[args.match] then
             -- vim.api.nvim_set_hl(0, "@lsp", {fg = '#00ffff' })
@@ -201,60 +166,44 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
             vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "Comment" })
         end
 
+        -- lunaperche
+        if target_lunaperche[args.match] and vim.o.background == 'light' then
+            vim.cmd("highlight Normal guibg=#ffffff ctermbg=none")
 
-        -- quiet
-        if target_quiet[args.match] then
-            vim.api.nvim_set_hl(0, "Comment", { link = "@lsp.type.comment" })
+            vim.api.nvim_set_hl(0, "Type", { fg = '#006000', italic = false })
 
-            if vim.o.background == 'light' then
-                -- vim.cmd("highlight Normal guibg=#ffffdd ctermbg=none")
-                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#8c509c', italic = true, bold = false })
-                vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
+            vim.api.nvim_set_hl(0, "Constant", { fg = '#c05050' })
+                vim.api.nvim_set_hl(0, "Title", { link = 'Constant', bold = true })
 
+            vim.api.nvim_set_hl(0, "Identifier", { fg = '#000000' })
+
+            vim.api.nvim_set_hl(0, "Comment", { fg = '#8c509c', italic = true, bold = false })
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "Comment" })
+
+            vim.api.nvim_set_hl(0, "String", { link = 'Constant' })
                 vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { link = 'String' })
+                vim.api.nvim_set_hl(0, "@lsp.type.string.zig", { link = 'String' })
                 vim.api.nvim_set_hl(0, "cString", { link = 'String' })
-                vim.api.nvim_set_hl(0, "String", { fg = '#306030' })
+                vim.api.nvim_set_hl(0, "rustString", { link = 'String' })
+                vim.api.nvim_set_hl(0, "rustStringContinuation", { link = 'String' })
+                vim.api.nvim_set_hl(0, "rustEscape", { link = 'String' })
 
-                vim.api.nvim_set_hl(0, "rustString", { fg = '#006000' })
-                vim.api.nvim_set_hl(0, "rustStringContinuation", { fg = '#006000' })
-                vim.api.nvim_set_hl(0, "rustEscape", { fg = '#006000' })
-
-                vim.api.nvim_set_hl(0, "_macros", { fg = '#4c2600', italic = true, underline = false })
+            vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
+            vim.api.nvim_set_hl(0, "_macros", { fg = '#007050', italic = false })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
+                vim.api.nvim_set_hl(0, "@lsp.type.builtin.zig", { link = "_macros" })
+            vim.api.nvim_set_hl(0, "Special", { link = '_macros', italic = true })
 
-                -- vim.api.nvim_set_hl(0, "Function", { fg = '#002040' })
-                -- vim.api.nvim_set_hl(0, "Function", { fg = '#102848' })
-                vim.api.nvim_set_hl(0, "Function", { fg = '#0c1e36' })
-                vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
-                vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
-
-                vim.api.nvim_set_hl(0, "Statement", { fg = '#505050' })
-
-            else
-                vim.cmd("highlight Normal guibg=#171914 ctermbg=none")
-                vim.api.nvim_set_hl(0, "NormalFloat", { bg = '#444444', fg = '#dddddd', italic = true, bold = false })
-
-                vim.api.nvim_set_hl(0, "@lsp.type.comment", { fg = '#cc80cc', italic = true, bold = false })
-
-                vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { fg = '#80c070', italic = true })
-                vim.api.nvim_set_hl(0, "rustString", { fg = '#80c070' })
-                vim.api.nvim_set_hl(0, "rustStringContinuation", { fg = '#80c070' })
-                vim.api.nvim_set_hl(0, "rustStringDelimiter", { fg = '#80c070' })
-                vim.api.nvim_set_hl(0, "rustEscape", { fg = '#80c070' })
-
-                vim.api.nvim_set_hl(0, "_macros", { fg = '#bf8c8c', italic = true })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
-                vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
-
-                -- vim.api.nvim_set_hl(0, "Function", { fg = '#ccdcdc' })
+            vim.api.nvim_set_hl(0, "Function", { fg = '#003090' })
+                vim.api.nvim_set_hl(0, "@lsp.type.function.zig", { link = 'Function' })
                 vim.api.nvim_set_hl(0, "rustFuncCall", { bold = false })
                 vim.api.nvim_set_hl(0, "rustFuncName", { bold = true })
 
-                vim.api.nvim_set_hl(0, "Statement", { fg = '#b8b8b8' })
-            end
+            vim.api.nvim_set_hl(0, "Statement", { fg = '#000000', bold = true })
+
+            vim.api.nvim_set_hl(0, "Todo", { fg = '#000000', bg = '#ffff00' })
         end
 
         -- torte
@@ -373,11 +322,18 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
 vim.treesitter.stop()
 
 vim.opt.bg = 'light'
-vim.cmd.colorscheme 'quiet'
-
+vim.cmd.colorscheme 'lunaperche'
 
 vim.opt.list = true
 vim.opt.listchars = { leadmultispace = "│   " }
 
 vim.opt_local.textwidth = 100
 vim.opt_local.colorcolumn = "101"
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        vim.opt_local.textwidth = 100
+        vim.opt_local.colorcolumn = "101"
+    end,
+})
+

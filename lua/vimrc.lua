@@ -83,24 +83,20 @@ vim.keymap.set('n', '<leader>uq', function()
     vim.cmd.colorscheme 'quiet'
 end, {desc = "Theme: quiet (light)" })
 
-vim.keymap.set('n', '<leader>ua', function()
-    vim.opt.bg = 'dark'
-    vim.cmd.colorscheme 'quiet'
-end, {desc = "Theme: quiet (dark)" })
-
 vim.keymap.set('n', '<leader>uz', function()
     vim.cmd.colorscheme 'blue'
 end, {desc = "Theme: blue" })
 
-vim.keymap.set('n', '<leader>uw', function()
+vim.keymap.set('n', '<leader>un', function()
     vim.opt.bg = 'light'
-    vim.cmd.colorscheme 'default'
-end, {desc = "Theme: default (light)" })
+    vim.cmd.colorscheme 'lunaperche'
+end, {desc = "Theme: lunaperche (light)" })
 
-vim.keymap.set('n', '<leader>us', function()
+vim.keymap.set('n', '<leader>um', function()
     vim.opt.bg = 'dark'
-    vim.cmd.colorscheme 'default'
-end, {desc = "Theme: default (dark)" })
+    vim.cmd.colorscheme 'lunaperche'
+end, {desc = "Theme: lunaperche (dark)" })
+
 
 vim.g.matchparen_disable_cursor_hl = 1
 

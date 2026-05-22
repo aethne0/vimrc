@@ -426,7 +426,7 @@ require("lazy").setup({
                   replace = { a = { bg = '#000000', fg = '#ffffff', gui = 'bold' } },
                 }
 
-                local target_quiet = { ["quiet"] = true }
+                local target_quiet = { ["quiet"] = true, ["lunaperche"] = true, }
                 vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
                     callback = function(args)
                         if target_quiet[args.match] then
