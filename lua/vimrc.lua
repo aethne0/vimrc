@@ -63,10 +63,6 @@ vim.keymap.set('n', '<leader>ut', function()
     vim.cmd.colorscheme 'tokyonight-moon'
 end, {desc = "Theme: tokyonight-moon" })
 
-vim.keymap.set('n', '<leader>ux', function()
-    vim.opt.bg = 'dark'
-    vim.cmd.colorscheme 'moonfly'
-end, {desc = "Theme: moonfly" })
 
 vim.keymap.set('n', '<leader>ue', function()
     vim.opt.bg = 'dark'
@@ -78,24 +74,19 @@ vim.keymap.set('n', '<leader>ub', function()
     vim.cmd.colorscheme 'torte'
 end, {desc = "Theme: torte" })
 
-vim.keymap.set('n', '<leader>uq', function()
-    vim.opt.bg = 'light'
-    vim.cmd.colorscheme 'quiet'
-end, {desc = "Theme: quiet (light)" })
-
 vim.keymap.set('n', '<leader>uz', function()
     vim.cmd.colorscheme 'blue'
 end, {desc = "Theme: blue" })
 
-vim.keymap.set('n', '<leader>un', function()
+vim.keymap.set('n', '<leader>uq', function()
     vim.opt.bg = 'light'
     vim.cmd.colorscheme 'lunaperche'
 end, {desc = "Theme: lunaperche (light)" })
 
-vim.keymap.set('n', '<leader>um', function()
+vim.keymap.set('n', '<leader>uw', function()
     vim.opt.bg = 'dark'
-    vim.cmd.colorscheme 'lunaperche'
-end, {desc = "Theme: lunaperche (dark)" })
+    vim.cmd.colorscheme 'moonfly'
+end, {desc = "Theme: moonfly" })
 
 
 vim.g.matchparen_disable_cursor_hl = 1

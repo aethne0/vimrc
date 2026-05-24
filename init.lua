@@ -152,12 +152,17 @@ vim.api.nvim_create_autocmd("FileType", {
 
 
 local target_lunaperche = { ["lunaperche"] = true }
+local target_moonfly = { ["moonfly"] = true }
 local target_torte = { ["torte"] = true }
 local target_blue  = { ["blue"] = true  }
 
 vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
     callback = function(args)
         -- blue
+        if target_moonfly[args.match] then
+            vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = 'cConstant' })
+        end
+
         if target_blue[args.match] then
             -- vim.api.nvim_set_hl(0, "@lsp", {fg = '#00ffff' })
             -- vim.api.nvim_set_hl(0, "Identifier", { fg = '#cccccc' })
@@ -170,16 +175,12 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
         if target_lunaperche[args.match] and vim.o.background == 'light' then
             vim.cmd("highlight Normal guibg=#ffffff ctermbg=none")
 
-            vim.api.nvim_set_hl(0, "Type", { fg = '#006000', italic = false })
+            vim.api.nvim_set_hl(0, "Type", { fg = '#007000' })
+            vim.api.nvim_set_hl(0, "cStructure", { fg = '#303030', bold = true })
+            vim.api.nvim_set_hl(0, "cStorageClass", { fg = '#003000', italic = false })
 
-            vim.api.nvim_set_hl(0, "Constant", { fg = '#c05050' })
+            vim.api.nvim_set_hl(0, "Constant", { fg = '#d06060' })
                 vim.api.nvim_set_hl(0, "Title", { link = 'Constant', bold = true })
-
-            vim.api.nvim_set_hl(0, "Identifier", { fg = '#000000' })
-
-            vim.api.nvim_set_hl(0, "Comment", { fg = '#8c509c', italic = true, bold = false })
-                vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "Comment" })
-
             vim.api.nvim_set_hl(0, "String", { link = 'Constant' })
                 vim.api.nvim_set_hl(0, "@lsp.type.string.rust", { link = 'String' })
                 vim.api.nvim_set_hl(0, "@lsp.type.string.zig", { link = 'String' })
@@ -188,13 +189,19 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
                 vim.api.nvim_set_hl(0, "rustStringContinuation", { link = 'String' })
                 vim.api.nvim_set_hl(0, "rustEscape", { link = 'String' })
 
-            vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
-            vim.api.nvim_set_hl(0, "_macros", { fg = '#007050', italic = false })
+            vim.api.nvim_set_hl(0, "Identifier", { fg = '#000000' })
+
+            vim.api.nvim_set_hl(0, "Comment", { fg = '#8c509c', italic = true, bold = false })
+                vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "Comment" })
+
+            -- vim.api.nvim_set_hl(0, "PreProc", { fg = '#6c7c6a' })
+            vim.api.nvim_set_hl(0, "PreProc", { fg = '#700000' })
+                vim.api.nvim_set_hl(0, "_macros", { link = 'PreProc' })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro.c", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.macro.rust", { link = "_macros" })
                 vim.api.nvim_set_hl(0, "@lsp.type.builtin.zig", { link = "_macros" })
-            vim.api.nvim_set_hl(0, "Special", { link = '_macros', italic = true })
+                vim.api.nvim_set_hl(0, "Special", { link = '_macros', italic = true })
 
             vim.api.nvim_set_hl(0, "Function", { fg = '#003090' })
                 vim.api.nvim_set_hl(0, "@lsp.type.function.zig", { link = 'Function' })
@@ -337,3 +344,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
+-- begone cpp
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.h",
+  callback = function()
+    vim.bo.filetype = "c"
+  end,
+})
