@@ -259,3 +259,55 @@ vim.api.nvim_create_user_command('Q', function()
 end, {})
 
 --
+
+ vim.api.nvim_create_user_command("Dec", function(opts)
+    local arg = opts.args
+    local str = arg:match("^'(.*)'$")
+    local result
+    if str then
+      local bytes = {}
+      for i = 1, #str do
+        bytes[i] = string.byte(str, i)
+      end
+      result = table.concat(bytes, " ")
+    else
+      local n = tonumber(arg, 16)
+      if n then
+        result = tostring(n)
+      else
+        vim.notify("Invalid input: " .. arg, vim.log.levels.ERROR)
+        return
+      end
+    end
+    if opts.bang then
+      vim.api.nvim_put({ result }, "l", true, true)
+    else
+      print(result)
+    end
+  end, { nargs = 1, bang = true })
+
+    vim.api.nvim_create_user_command("Hex", function(opts)
+    local arg = opts.args
+    local str = arg:match("^'(.*)'$")
+    local result
+    if str then
+      local bytes = {}
+      for i = 1, #str do
+        bytes[i] = string.format("%x", string.byte(str, i))
+      end
+      result = table.concat(bytes, " ")
+    else
+      local n = tonumber(arg)
+      if n then
+        result = string.format("%x", n)
+      else
+        vim.notify("Invalid input: " .. arg, vim.log.levels.ERROR)
+        return
+      end
+    end
+    if opts.bang then
+      vim.api.nvim_put({ result }, "l", true, true)
+    else
+      print(result)
+    end
+  end, { nargs = 1, bang = true })

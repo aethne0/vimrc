@@ -328,8 +328,8 @@ vim.api.nvim_create_autocmd({"ColorScheme", "VimEnter"}, {
 -- stop treesitter
 vim.treesitter.stop()
 
-vim.opt.bg = 'light'
-vim.cmd.colorscheme 'lunaperche'
+vim.opt.bg = 'dark'
+vim.cmd.colorscheme 'moonfly'
 
 vim.opt.list = true
 vim.opt.listchars = { leadmultispace = "│   " }
@@ -351,3 +351,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "c"
   end,
 })
+
+
